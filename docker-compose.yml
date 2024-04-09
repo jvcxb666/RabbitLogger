@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+    apache:
+      container_name: base
+      image: php:8.1-apache
+      volumes:
+        - ./base:/var/www/html
+      ports:
+        - 8080:80
+      environment:
+      - TZ=Europe/Moscow
+
+    rabbitmq:
+      container_name: rmq
+      image: rabbitmq:3.10.7-management
+      ports:
+        - 15672:15672
