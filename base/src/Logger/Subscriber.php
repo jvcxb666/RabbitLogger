@@ -7,6 +7,7 @@ use App\Logger\Decorator\AbstractConnectionDecorator;
 use App\Logger\Interface\Configurated;
 use App\Logger\Interface\RabbitConnectable;
 use App\Logger\Interface\WriterInterface;
+use App\Logger\Message\LoggerStringMessage;
 
 class Subscriber extends AbstractConnectionDecorator implements Configurated
 {
@@ -58,8 +59,9 @@ class Subscriber extends AbstractConnectionDecorator implements Configurated
         foreach($this->subscribed as $subscribe) {
             $msg = $this->client->getChannel()->get($subscribe);
             if(!empty($msg)) {
+                $message = new LoggerStringMessage($msg->content,true);
                 $this->client->getChannel()->ack($msg);
-                $this->writer->writeLog(strtoupper($subscribe)." ".$msg->content);
+                $this->writer->writeLog(strtoupper($subscribe)." ".$message->getContent());
             }
         }
    }

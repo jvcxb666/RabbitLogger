@@ -8,9 +8,9 @@ class LoggerStringMessage implements MessageInterface
 {
     private string $message;
 
-    public function __construct(string|array $message)
+    public function __construct(string|array $message, bool $consumed = false)
     {
-        $this->createMessage($message);
+        (!$consumed) ? $this->createMessage($message) : $this->parseMessage($message);
     }
 
     public function getContent(): string|null
@@ -27,6 +27,18 @@ class LoggerStringMessage implements MessageInterface
             $message = json_encode($message);
         }else{
             $message = "[{$date}] {$message}";
+        }
+
+        $this->message = $message;
+    }
+
+    private function parseMessage(string $message): void
+    {
+        if(json_decode($message,1) !== false) {
+            $decoded = json_decode($message,1);
+            $message = "[".$decoded['logger_message_date']."]";
+            unset($decoded['logger_message_date']);
+            $message .= " ".json_encode($decoded);
         }
 
         $this->message = $message;
