@@ -2,17 +2,18 @@
 
 namespace App\Logger\Writer;
 
-use App\Logger\Interface\Configurated;
+use App\Logger\Interface\Configurable;
 use App\Logger\Interface\WriterInterface;
+use App\Logger\Utils\ConfigProvider;
 
-class FileWriter implements WriterInterface, Configurated
+class FileWriter implements WriterInterface, Configurable
 {
 
     private string $filename;
 
     public function __construct(string|null $filename = null)
     {
-        $this->filename = $filename ?? $this->getConfig()['filename'];
+        $this->filename = $filename ?? $this->getConfig()['log_filename'];
     }
 
     public function writeLog(string $message): void
@@ -24,7 +25,7 @@ class FileWriter implements WriterInterface, Configurated
 
     public function getConfig(): ?array
     {
-        return ["config" => self::QCONFIG, "filename" => self::FILE_NAME];
+        return ConfigProvider::getConfigVariable("baseLogger");
     }
 
     private function write(string $text): void

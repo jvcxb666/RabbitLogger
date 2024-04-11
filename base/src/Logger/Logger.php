@@ -4,11 +4,12 @@ namespace App\Logger;
 
 use App\Logger\Connection\BaseConnection;
 use App\Logger\Decorator\AbstractConnectionDecorator;
-use App\Logger\Interface\Configurated;
+use App\Logger\Interface\Configurable;
 use App\Logger\Interface\RabbitConnectable;
 use App\Logger\Message\LoggerStringMessage;
+use App\Logger\Utils\ConfigProvider;
 
-class Logger extends AbstractConnectionDecorator implements Configurated
+class Logger extends AbstractConnectionDecorator implements Configurable
 {
     public function __construct(RabbitConnectable $connection = null)
     {
@@ -48,7 +49,7 @@ class Logger extends AbstractConnectionDecorator implements Configurated
 
    public function getConfig(): array|null
    {
-        return static::QCONFIG['level'];
+        return ConfigProvider::getConfigVariable("baseLogger")['level'];
    }
 
    private function publish(string $type,string|array $message): void
