@@ -8,15 +8,17 @@ use App\Logger\Interface\Configurated;
 use App\Logger\Interface\RabbitConnectable;
 use App\Logger\Interface\WriterInterface;
 use App\Logger\Message\LoggerStringMessage;
+use App\Logger\Writer\FileWriter;
 
 class Subscriber extends AbstractConnectionDecorator implements Configurated
 {
     private array $subscribed = [];
     private WriterInterface $writer;
 
-    public function __construct(WriterInterface $writer,RabbitConnectable $connection = null)
+    public function __construct(WriterInterface $writer = null,RabbitConnectable $connection = null)
     {
         if(empty($connection)) $connection = new BaseConnection();
+        if(empty($writer)) $writer = new FileWriter();
         parent::__construct($connection);
         $this->writer = $writer;
     }
