@@ -34,8 +34,8 @@ class LoggerStringMessage implements MessageInterface
 
     private function parseMessage(string $message): void
     {
-        if(json_decode($message,1) !== false) {
-            $decoded = json_decode($message,1);
+        $decoded = json_decode($message,1);
+        if(!empty($decoded) && is_array($decoded)) {
             $message = "[".$decoded['logger_message_date']."]";
             unset($decoded['logger_message_date']);
             $message .= " ".json_encode($decoded);
