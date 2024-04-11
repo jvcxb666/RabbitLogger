@@ -2,19 +2,16 @@
 
 namespace App\Logger;
 
-use App\Logger\Connection\BaseConnection;
 use App\Logger\Decorator\AbstractConnectionDecorator;
 use App\Logger\Interface\Configurable;
-use App\Logger\Interface\RabbitConnectable;
 use App\Logger\Message\LoggerStringMessage;
 use App\Logger\Utils\ConfigProvider;
 
 class Logger extends AbstractConnectionDecorator implements Configurable
 {
-    public function __construct(RabbitConnectable $connection = null)
+    public function __construct()
     {
-        if(empty($connection)) $connection = new BaseConnection();
-        parent::__construct($connection);
+        parent::__construct();
         $this->setup();
     }
 

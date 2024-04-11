@@ -2,10 +2,8 @@
 
 namespace App\Logger;
 
-use App\Logger\Connection\BaseConnection;
 use App\Logger\Decorator\AbstractConnectionDecorator;
 use App\Logger\Interface\Configurable;
-use App\Logger\Interface\RabbitConnectable;
 use App\Logger\Interface\WriterInterface;
 use App\Logger\Message\LoggerStringMessage;
 use App\Logger\Utils\ConfigProvider;
@@ -16,11 +14,11 @@ class Subscriber extends AbstractConnectionDecorator implements Configurable
     private array $subscribed = [];
     private WriterInterface $writer;
 
-    public function __construct(WriterInterface $writer = null,RabbitConnectable $connection = null)
+    public function __construct(WriterInterface $writer = null)
     {
-        if(empty($connection)) $connection = new BaseConnection();
+        parent::__construct();
+        $this->setup();
         if(empty($writer)) $writer = new FileWriter();
-        parent::__construct($connection);
         $this->writer = $writer;
     }
 
