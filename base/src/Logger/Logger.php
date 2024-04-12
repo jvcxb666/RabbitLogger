@@ -3,11 +3,10 @@
 namespace App\Logger;
 
 use App\Decorator\AbstractConnectionDecorator;
-use App\Interface\Configurable;
 use App\Message\LoggerStringMessage;
 use App\Utils\ConfigProvider;
 
-class Logger extends AbstractConnectionDecorator implements Configurable
+class Logger extends AbstractConnectionDecorator
 {
     public function __construct()
     {
@@ -19,39 +18,21 @@ class Logger extends AbstractConnectionDecorator implements Configurable
     {
         if(empty($arguments)) return;
 
-        if(array_key_exists($name,$this->getConfig())) {
+        if(array_key_exists($name,$this->getConfig()['queues'])) {
             $this->publish($name,$arguments[0]);
         } else {
             $this->publish("all",$arguments[0]);
         }
     }
 
-    public function setup(): void
-    {
-        foreach($this->getConfig() as $options)
-        {
-            $this->client->getChannel()->exchangeDeclare($options['exchange_name'],$options['exchange']);
-            if(!empty($options['key']))
-            {
-                $this->client->getChannel()->queueDeclare($options['name']);
-                $this->client->getChannel()->queueBind($options['name'],$options['exchange_name'],$options['key']);
-            }else{
-                foreach($options['queues'] as $q){
-                    $this->client->getChannel()->queueDeclare($q);
-                    $this->client->getChannel()->queueBind($q,$options['exchange_name']);
-                }
-            }
-        }
-   }
-
    public function getConfig(): array|null
    {
-        return ConfigProvider::getConfigVariable("baseLogger")['level'];
+        return ConfigProvider::getConfigVariable("baseLogger");
    }
 
    private function publish(string $type,string|array $message): void
    {
-        $config = $this->getConfig()[$type];
+        $config = $this->getConfig()['queues'][$type];
         $message = new LoggerStringMessage($message);
         if($type !== "all"){
             $this->client->getChannel()->publish($message->getContent(),[],$config['exchange_name'],$config['key']);

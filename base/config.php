@@ -3,7 +3,7 @@
 return [
     "rabbitConnection" => ['host' => 'rabbitmq'],
     "baseLogger" => [
-        "level" => [
+        "queues" => [
             "debug" => [
                 "name" => "debug",
                 "exchange_name" => "logger.topic",
