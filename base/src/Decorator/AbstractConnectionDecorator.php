@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Logger\Decorator;
+namespace App\Decorator;
 
-use App\Logger\Connection\BaseConnection;
-use App\Logger\Interface\RabbitConnectable;
+use App\Connection\BaseConnection;
+use App\Interface\RabbitConnectable;
 
 abstract class AbstractConnectionDecorator
 {

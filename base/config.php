@@ -33,6 +33,15 @@ return [
             ]
         ],
         "log_filename" => "test.log",
-    ]
-    
+    ],
+    "curlLogger" => [
+        "queues" => [
+            "main" => [
+                "name" => "curl",
+                "exchange_name" => "logger.topic",
+                "exchange" => "topic",
+                "key" => "logger.curl.main"
+            ],
+        ]
+    ],
 ];

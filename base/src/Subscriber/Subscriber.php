@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Logger;
+namespace App\Subscriber;
 
-use App\Logger\Decorator\AbstractConnectionDecorator;
-use App\Logger\Interface\Configurable;
-use App\Logger\Interface\WriterInterface;
-use App\Logger\Message\LoggerStringMessage;
-use App\Logger\Utils\ConfigProvider;
-use App\Logger\Writer\FileWriter;
+use App\Decorator\AbstractConnectionDecorator;
+use App\Interface\Configurable;
+use App\Interface\WriterInterface;
+use App\Message\LoggerStringMessage;
+use App\Utils\ConfigProvider;
+use App\Writer\FileWriter;
 
 class Subscriber extends AbstractConnectionDecorator implements Configurable
 {

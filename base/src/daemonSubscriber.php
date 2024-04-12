@@ -1,6 +1,6 @@
 <?php
 
-use App\Logger\Subscriber;
+use App\Subscriber\Subscriber;
 
 $pid = pcntl_fork();
 

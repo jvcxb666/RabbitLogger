@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Logger\Utils;
+namespace App\Utils;
 
 class ConfigProvider
 {
@@ -28,7 +28,7 @@ class ConfigProvider
 
     private function __construct()
     {
-        self::$config = include __DIR__."/../../../config.php";
+        self::$config = include __DIR__."/../../config.php";
         self::$instance = $this;
     }
 

@@ -1,8 +1,8 @@
 <?
 
-namespace App\Logger\Connection;
+namespace App\Connection;
 
-use App\Logger\Interface\RabbitConnectable;
+use App\Interface\RabbitConnectable;
 use Bunny\Channel;
 use Bunny\Client;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Logger\Interface;
+namespace App\Interface;
 
 interface WriterInterface
 {

@@ -2,10 +2,10 @@
 
 namespace App\Logger;
 
-use App\Logger\Decorator\AbstractConnectionDecorator;
-use App\Logger\Interface\Configurable;
-use App\Logger\Message\LoggerStringMessage;
-use App\Logger\Utils\ConfigProvider;
+use App\Decorator\AbstractConnectionDecorator;
+use App\Interface\Configurable;
+use App\Message\LoggerStringMessage;
+use App\Utils\ConfigProvider;
 
 class Logger extends AbstractConnectionDecorator implements Configurable
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Logger\Message;
+namespace App\Message;
 
-use App\Logger\Interface\MessageInterface;
+use App\Interface\MessageInterface;
 
 class LoggerStringMessage implements MessageInterface
 {

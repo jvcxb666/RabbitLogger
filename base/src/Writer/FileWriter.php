@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Logger\Writer;
+namespace App\Writer;
 
-use App\Logger\Interface\Configurable;
-use App\Logger\Interface\WriterInterface;
-use App\Logger\Utils\ConfigProvider;
+use App\Interface\Configurable;
+use App\Interface\WriterInterface;
+use App\Utils\ConfigProvider;
 
 class FileWriter implements WriterInterface, Configurable
 {
