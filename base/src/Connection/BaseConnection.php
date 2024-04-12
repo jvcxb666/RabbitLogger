@@ -3,6 +3,7 @@
 namespace App\Connection;
 
 use App\Interface\RabbitConnectable;
+use App\Utils\ConfigProvider;
 use Bunny\Channel;
 use Bunny\Client;
 
@@ -17,7 +18,7 @@ class BaseConnection implements RabbitConnectable
 
     public function connect(): void
     {
-        $client = new Client(['host' => 'rabbitmq']);
+        $client = new Client(ConfigProvider::getConfigVariable("rabbitConnection"));
         $client->connect();
         $this->channel = $client->channel();
     }

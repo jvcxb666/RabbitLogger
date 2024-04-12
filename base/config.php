@@ -1,6 +1,7 @@
 <?php
 
 return [
+    "rabbitConnection" => ['host' => 'rabbitmq'],
     "baseLogger" => [
         "level" => [
             "debug" => [
