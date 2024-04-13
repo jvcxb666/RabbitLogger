@@ -37,9 +37,9 @@ return [
     ],
     "curlLogger" => [
         "queues" => [
-            "main" => [
+            "curl" => [
                 "name" => "curl",
-                "exchange_name" => "logger.topic",
+                "exchange_name" => "curl.topic",
                 "exchange" => "topic",
                 "key" => "logger.curl.main"
             ],

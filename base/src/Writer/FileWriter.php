@@ -3,6 +3,7 @@
 namespace App\Writer;
 
 use App\Interface\Configurable;
+use App\Interface\MessageInterface;
 use App\Interface\WriterInterface;
 use App\Utils\ConfigProvider;
 
@@ -16,7 +17,7 @@ class FileWriter implements WriterInterface, Configurable
         $this->filename = $filename ?? $this->getConfig()['log_filename'];
     }
 
-    public function writeLog(string $message): void
+    public function writeLog(string|MessageInterface $message): void
     {
         if(empty($message)) return;
 
