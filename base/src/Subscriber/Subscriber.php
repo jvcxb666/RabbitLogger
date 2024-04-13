@@ -3,12 +3,13 @@
 namespace App\Subscriber;
 
 use App\Decorator\AbstractConnectionDecorator;
+use App\Interface\SubscriberInterface;
 use App\Interface\WriterInterface;
 use App\Message\LoggerStringMessage;
 use App\Utils\ConfigProvider;
 use App\Writer\FileWriter;
 
-class Subscriber extends AbstractConnectionDecorator
+class Subscriber extends AbstractConnectionDecorator implements SubscriberInterface
 {
     private array $subscribed = [];
     private WriterInterface $writer;
