@@ -2,18 +2,13 @@
 
 namespace App\Subscriber;
 
-use App\Decorator\AbstractConnectionDecorator;
-use App\Interface\SubscriberInterface;
 use App\Interface\WriterInterface;
 use App\Message\LoggerStringMessage;
 use App\Utils\ConfigProvider;
 use App\Writer\FileWriter;
 
-class Subscriber extends AbstractConnectionDecorator implements SubscriberInterface
+class Subscriber extends AbstractSubscriber
 {
-    private array $subscribed = [];
-    private WriterInterface $writer;
-
     public function __construct(WriterInterface $writer = null)
     {
         parent::__construct();
@@ -25,16 +20,6 @@ class Subscriber extends AbstractConnectionDecorator implements SubscriberInterf
    public function getConfig(): array|null
    {
         return ConfigProvider::getConfigVariable("baseLogger");
-   }
-
-   public function subscribe(string $subscribe): void
-   {
-        if(!in_array($subscribe,$this->subscribed) && array_key_exists($subscribe,$this->getConfig()['queues'])) $this->subscribed[$subscribe] = $subscribe;
-   }
-
-   public function unsubscribe(string $subscribe): void
-   {
-        if(in_array($subscribe,$this->subscribed)) unset($this->subscribed[$subscribe]);
    }
 
    public function consume(): void

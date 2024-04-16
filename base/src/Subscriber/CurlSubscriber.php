@@ -2,22 +2,17 @@
 
 namespace App\Subscriber;
 
-use App\Decorator\AbstractConnectionDecorator;
-use App\Interface\SubscriberInterface;
 use App\Interface\WriterInterface;
 use App\Message\CurlMessage;
 use App\Utils\ConfigProvider;
 use App\Writer\CurlWriter;
 
-class CurlSubscriber extends AbstractConnectionDecorator implements SubscriberInterface
+class CurlSubscriber extends AbstractSubscriber
 {
-    private WriterInterface $writer;
-    private array $subscribed = [];
-
     public function __construct(WriterInterface $writer = null)
     {
-        if(empty($writer)) $this->writer = new CurlWriter;
         parent::__construct();
+        if(empty($writer)) $this->writer = new CurlWriter;
         $this->setup();
     }
 
@@ -25,16 +20,6 @@ class CurlSubscriber extends AbstractConnectionDecorator implements SubscriberIn
     {
         return ConfigProvider::getConfigVariable("curlLogger");
     }
-
-   public function subscribe(string $subscribe): void
-   {
-        if(!in_array($subscribe,$this->subscribed) && array_key_exists($subscribe,$this->getConfig()['queues'])) $this->subscribed[$subscribe] = $subscribe;
-   }
-
-   public function unsubscribe(string $subscribe): void
-   {
-        if(in_array($subscribe,$this->subscribed)) unset($this->subscribed[$subscribe]);
-   }
 
    public function consume(): void
    {
