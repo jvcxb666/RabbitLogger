@@ -9,14 +9,6 @@ use App\Writer\FileWriter;
 
 class Subscriber extends AbstractSubscriber
 {
-    public function __construct(WriterInterface $writer = null)
-    {
-        parent::__construct();
-        $this->setup();
-        if(empty($writer)) $writer = new FileWriter();
-        $this->writer = $writer;
-    }
-
    public function getConfig(): array|null
    {
         return ConfigProvider::getConfigVariable("baseLogger");
