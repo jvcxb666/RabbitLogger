@@ -21,7 +21,7 @@ class CurlWriter implements WriterInterface
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, false);
         if($message->getMethod() == "POST") {
             curl_setopt($curl,CURLOPT_POST,true);
-            curl_setopt($curl,CURLOPT_POSTFIELDS,$message->getBody());
+            curl_setopt($curl,CURLOPT_POSTFIELDS,json_decode($message->getBody(),1));
         } else {
             $url = $message->getUrl()."?".http_build_query(json_decode($message->getBody(),1));
             curl_setopt($curl,CURLOPT_URL,$url);
